@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BMW Build Studio — Real Photo Edition</title>
+<meta name="referrer" content="no-referrer">
+<title>BMW Build Studio V7 — Real Photo Edition</title>
 <style>
 :root{
   --bg:#07090c;--panel:#0f1319;--panel2:#151a22;--panel3:#1b222d;--line:#283241;
@@ -162,7 +163,7 @@ body:before{content:"";position:fixed;top:0;left:0;right:0;height:3px;z-index:10
 .hero-card,.card{border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg,rgba(16,21,28,.97),rgba(7,10,14,.98));box-shadow:var(--shadow)}
 .hero-copy{position:relative;overflow:hidden;min-height:500px;display:flex;flex-direction:column;justify-content:flex-end;background:
   linear-gradient(90deg,rgba(4,6,9,.98) 0%,rgba(4,6,9,.87) 42%,rgba(4,6,9,.25) 72%,rgba(4,6,9,.16) 100%),
-  url("https://commons.wikimedia.org/wiki/Special:Redirect/file/BMW%20M4%20(G82)%201X7A0155.jpg?width=1800") center/cover no-repeat}
+  url("https://images.weserv.nl/?url=www.bmw-m.com%2Fcontent%2Fdam%2Fbmw%2FmarketBMW_M%2Fwww_bmw-m_com%2Ftopics%2Fmagazine-article-pool%2F2025%2Fbmw-m-editionsmodelle%2Fbmw-editionen-m3-50-jahre-edition-24-4x3-li.jpg&w=1800&h=1050&fit=cover&output=webp") center/cover no-repeat}
 .hero-copy:after{content:"";position:absolute;left:0;bottom:0;width:145px;height:5px;background:linear-gradient(90deg,var(--m-blue) 0 33%,var(--m-navy) 33% 66%,var(--m-red) 66%)}
 .hero-copy>*{position:relative;z-index:2;max-width:700px}
 .hero-copy h1{font-weight:850;letter-spacing:-.05em;text-transform:uppercase}
@@ -199,7 +200,7 @@ body:before{content:"";position:fixed;top:0;left:0;right:0;height:3px;z-index:10
   background-image:
     linear-gradient(90deg,rgba(2,4,7,.58),rgba(2,4,7,.32) 45%,rgba(2,4,7,.32) 55%,rgba(2,4,7,.58)),
     linear-gradient(0deg,rgba(0,0,0,.4),rgba(0,0,0,.18)),
-    url("https://commons.wikimedia.org/wiki/Special:Redirect/file/SIR%20starting%20line.JPG?width=1600");
+    url("https://images.weserv.nl/?url=commons.wikimedia.org%2Fwiki%2FSpecial%3ARedirect%2Ffile%2FSIR%2520starting%2520line.JPG%3Fwidth%3D1600&w=1600&h=1000&fit=cover&output=webp");
   background-size:cover;background-position:center 58%;
 }
 .track:before,.track:after{height:6px;opacity:.88}
@@ -628,12 +629,13 @@ body:before{content:"";position:fixed;top:0;left:0;right:0;height:3px;z-index:10
     <div class="card" style="padding:22px">
       <div class="eyebrow">Reference data</div><h2>Sources & image policy</h2>
       <div class="source-list">
+        <div class="source"><b>GitHub Pages image mode</b><p>This build does not call a photo-search API at runtime. Car and kit images are loaded as ordinary static image resources through a proxy, with series-level and embedded fallbacks so cards should not stay blank.</p></div>
         <div class="source"><b>BMW Group PressClub photography</b><p>V5 only displays manually curated BMW press/professional vehicle images. Random web-image fallback was removed so people, watermarks, screenshots and cluttered owner photos do not appear unexpectedly.</p></div>
         <div class="source"><b>Exterior reference catalogs</b><p>ADRO, Vorsteiner, BMW M Performance, 3D Design, Maxton Design and other BMW-focused brands are represented as visual/fitment references where applicable.</p></div>
         <div class="source"><b>Supporting-hardware references</b><p>Public VRSF, CSF, Wagner, ARM and similar catalog information is used for non-installation product reference cards and price snapshots.</p></div>
         <div class="source"><b>BMW / BMW Group press material</b><p>Factory engine outputs, model positioning and new-model technical figures.</p><a href="https://www.press.bmwgroup.com/global" target="_blank" rel="noopener">BMW Group PressClub</a></div>
         <div class="source"><b>Aftermarket technical modeling</b><p>Real-part references are limited to non-powertrain cataloging such as exterior/body, chassis and visual/supporting references. Tune, turbo, fueling, exhaust and transmission selections are virtual simulation categories only.</p></div>
-        <div class="source"><b>Wikimedia Commons</b><p>Vehicle photos are fetched dynamically with the Commons API. Licensing belongs to each image's original Commons file page.</p><a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+        <div class="source"><b>Wikimedia Commons</b><p>GitHub Pages edition: vehicle images use static proxied URLs instead of browser-side image searches, reducing CORS/hot-link failures. Missing chassis fall back to a representative photo for that BMW series.</p><a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a></div>
       </div>
     </div>
   </div>
@@ -1186,41 +1188,60 @@ function profileFor(engine){
 
 let activeCar=CARS.find(c=>c.name.includes('M340i')) || CARS[0];
 
-const BMW_PRESS = id => `https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=scaleBig&attachment=1&dokNo=${id}&quality=90&square=0`;
-const CURATED_PHOTOS = {
-  "E30":BMW_PRESS("P90233605"),
-  "E36":BMW_PRESS("P90233285"),
-  "E46":BMW_PRESS("P90236606"),
-  "E90":BMW_PRESS("P90190494"),
-  "E92":BMW_PRESS("P90215429"),
-  "F30":BMW_PRESS("P90241528"),
-  "F80":BMW_PRESS("P90140406"),
-  "G20":BMW_PRESS("P90479606"),
-  "G80":BMW_PRESS("P90416674"),
-  "F22":BMW_PRESS("P90334926"),
-  "G42":BMW_PRESS("P90444300"),
-  "G87":BMW_PRESS("P90497885"),
-  "E39":BMW_PRESS("P90517574"),
-  "E60":BMW_PRESS("P90517588"),
-  "F10":BMW_PRESS("P90244005"),
-  "G30":BMW_PRESS("P90389053"),
-  "F90":BMW_PRESS("P90316049"),
-  "G90":BMW_PRESS("P90575546"),
-  "F12/F13":BMW_PRESS("P90176323"),
-  "E31":BMW_PRESS("P90152304"),
-  "G15":BMW_PRESS("P90341406"),
-  "G16":BMW_PRESS("P90341406"),
-  "G70":BMW_PRESS("P90486233"),
-  "G82":BMW_PRESS("P90399205"),
-  "G83":BMW_PRESS("P90399205")
+const proxyImage = (url,w=1400,h=900) => {
+  if(!url) return '';
+  if(url.includes('images.weserv.nl')) return url;
+  const clean=url.replace(/^https?:\/\//,'');
+  return `https://images.weserv.nl/?url=${encodeURIComponent(clean)}&w=${w}&h=${h}&fit=cover&output=webp`;
 };
-
+const BMW_PRESS = id => proxyImage(`https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=scaleBig&attachment=1&dokNo=${id}&quality=90&square=0`);
+const CURATED_PHOTOS = {
+  "E30":proxyImage("https://images.collectingcars.com/009609/-01-21022022-KD04.jpg?auto=format%2Ccompress&crop=edges&cs=srgb&fit=fillmax&q=85&w=1263"),
+  "E36":proxyImage("https://images.autotrader.com/hn/c/581ec94690104a4482117d1903bde368.jpg"),
+  "E46":proxyImage("https://images.collectingcars.com/078948/AS-18-07-14.jpg?auto=format%2Ccompress&crop=edges&cs=srgb&fit=fillmax&q=85&w=1263"),
+  "E90":proxyImage("https://cdn.bmwblog.com/wp-content/uploads/2021/12/bmw-e90-335i-01-830x553.jpg"),
+  "E92":proxyImage("https://images.squarespace-cdn.com/content/v1/68194fe98e15984fb366a630/0b9e0638-8bdf-42c6-84dd-dd43de143be8/Brandon-M3-8130.jpg"),
+  "F22":BMW_PRESS("P90334926"),
+  "G42":proxyImage("https://data.avd.de/storage/xl/avd_fahrbericht-bmw-m240i_1500x1260px_1-6kve-xl.webp?v=0"),
+  "G87":proxyImage("https://mediapool.bmwgroup.com/cache/P9/202209/P90481885/P90481885-the-all-new-bmw-m2-country-road-10-2022-2250px.jpg"),
+  "F30":proxyImage("https://cache.motorsdb.com/resize/1600x1067/archives/2019/04/18/BMW-340i-F30-2015-2019-13898.jpg?mtime=1662324515"),
+  "F80":BMW_PRESS("P90140406"),
+  "G20":proxyImage("https://cdn.bmwblog.com/wp-content/uploads/2019/10/BMW-M340i-xdrive-tanzanite-blue-ii-31.jpg"),
+  "G80":proxyImage("https://cache.motorsdb.com/resize/1600x1067/archives/2025/08/30/BMW-M3-Competition-G80-2024-40544.jpg?mtime=1756594811"),
+  "F32":proxyImage("https://www.autodata1.com/media/bmw/pics/bmw-4er-coupe-f32-facelift-2017-%5B24711%5D.jpg"),
+  "G22":proxyImage("https://www.mad4wheels.com/img/free-car-images/mobile/18081/bmw-m440i-g22-xdrive-coupe-2021-606528.jpg"),
+  "G82":proxyImage("https://www.bmw-m.com/content/dam/bmw/marketBMW_M/www_bmw-m_com/topics/magazine-article-pool/2025/bmw-m-editionsmodelle/bmw-editionen-m3-50-jahre-edition-24-4x3-li.jpg"),
+  "E39":proxyImage("https://images.collectingcars.com/060518/Uvoz-avtomobila-GAS-Auto-BMW-E39-M5-002.jpg?auto=format%2Ccompress&cs=srgb&fit=clip&q=85&w=2000"),
+  "E60":proxyImage("https://media.carsandbids.com/cdn-cgi/image/width%3D768%2Cquality%3D70/20309e251cb7341d1fb94cb5d4546882260d2202/photos/exterior/3zZYjjWN-JPgnZG3/edit/O3Feb.jpg?t=173902862789"),
+  "F10":proxyImage("https://images.caradisiac.com/images/1/8/8/5/211885/S8-211885-820940.jpg"),
+  "G30":proxyImage("https://media.whichcar.com.au/uploads/2025/02/cec4b740-2017-BMW-540i.jpg"),
+  "F90":proxyImage("https://images.caradisiac.com/images/8/1/1/5/168115/S0-bmw-devoile-la-m5-competition-avec-625-ch-552055.jpg"),
+  "G90":proxyImage("https://mediapool.bmwgroup.com/cache/P9/202406/P90557420/P90557420-the-all-new-bmw-m5-06-2024-2000px.jpg"),
+  "E63":proxyImage("https://s1.cdn.autoevolution.com/images/news/gallery/celebrating-20-years-of-the-e63-m6-bmw-s-often-forgotten-v10-powered-icon_2.jpg"),
+  "F12":BMW_PRESS("P90176323"),
+  "F13":BMW_PRESS("P90176323"),
+  "F12/F13":BMW_PRESS("P90176323"),
+  "G15":proxyImage("https://www.mad4wheels.com/img/free-car-images/mobile/16316/bmw-m850i-g15-coupe-xdrive-2018-516413.jpg"),
+  "G16":proxyImage("https://www.mad4wheels.com/img/free-car-images/mobile/16316/bmw-m850i-g15-coupe-xdrive-2018-516413.jpg"),
+  "G11":proxyImage("https://www.mosselmanturbo.com/uploads/cars/detail_default/1200x675/bmw-750i-g11-g12-450hp.jpeg"),
+  "G70":proxyImage("https://wallpapers4screen.com/Uploads/29-11-2024/64080/thumb2-bmw-760i-xdrive-4k-studio-2024-cars-g70-luxury-cars.jpg"),
+  "E31":BMW_PRESS("P90152304")
+};
+const SERIES_FALLBACK_PHOTOS = {
+  "2":CURATED_PHOTOS.G42,
+  "3":CURATED_PHOTOS.G20,
+  "4":CURATED_PHOTOS.G22,
+  "5":CURATED_PHOTOS.G30,
+  "6":CURATED_PHOTOS.E63,
+  "7":CURATED_PHOTOS.G70,
+  "8":CURATED_PHOTOS.G15
+};
 const BODY_VISUALS = {
-  adroG20Front:"https://adro.com/cdn/shop/files/01_897a10b3-cb52-4d48-90ca-594c31b3a71e.webp?v=1784213389&width=1600",
-  adroG87Wing:"https://adro.com/cdn/shop/files/01_0fe037d2-7d4a-478d-97b0-fc93d719a69b.webp?v=1784213399&width=1600",
-  adroG8x:"https://adro.com/cdn/shop/files/DSC04475-Edit_e9a39cad-5c78-49ef-8a3e-d893dac60d24.jpg?v=1768516212&width=1600",
-  vorG8xBumper:"https://vorsteiner.com/cdn/shop/files/G8XM3M4_GTS-VAero_webthumbnails_1.jpg?v=1756507274&width=1600",
-  vorG8xSpoiler:"https://vorsteiner.com/cdn/shop/products/BMW_G8X_M3-M4_Aero_Web_Carbon-Fiber-Front_Spoiler_2.png?v=1756507890&width=1600"
+  adroG20Front:proxyImage("https://adro.com/cdn/shop/files/01_897a10b3-cb52-4d48-90ca-594c31b3a71e.webp?v=1784213389&width=1600"),
+  adroG87Wing:proxyImage("https://adro.com/cdn/shop/files/01_0fe037d2-7d4a-478d-97b0-fc93d719a69b.webp?v=1784213399&width=1600"),
+  adroG8x:proxyImage("https://adro.com/cdn/shop/files/DSC04475-Edit_e9a39cad-5c78-49ef-8a3e-d893dac60d24.jpg?v=1768516212&width=1600"),
+  vorG8xBumper:proxyImage("https://vorsteiner.com/cdn/shop/files/G8XM3M4_GTS-VAero_webthumbnails_1.jpg?v=1756507274&width=1600"),
+  vorG8xSpoiler:proxyImage("https://vorsteiner.com/cdn/shop/products/BMW_G8X_M3-M4_Aero_Web_Carbon-Fiber-Front_Spoiler_2.png?v=1756507890&width=1600")
 };
 
 const REAL_PARTS = [
@@ -1607,7 +1628,7 @@ function formatPrice(p){
   return p===0 ? "$0" : p.toLocaleString("en-US",{style:"currency",currency:"USD",minimumFractionDigits:p%1?2:0});
 }
 function basePhotoFor(car){
-  return CURATED_PHOTOS[car.chassis] || CURATED_PHOTOS[baseChassis(car)] || "";
+  return CURATED_PHOTOS[car.chassis] || CURATED_PHOTOS[baseChassis(car)] || SERIES_FALLBACK_PHOTOS[car.series] || "";
 }
 function engineLongName(car){
   const e=car.engine;
@@ -1660,7 +1681,7 @@ function renderPartBrowser(){
     el.className="part-card"+(isSel?" selected":"");
     const bodyVisual=activePartCategory==="bodykits";
     el.innerHTML=`
-      ${bodyVisual?`<div class="product-visual">${p.preview?`<img src="${p.preview}" alt="${p.brand} ${p.name}"><span class="clean-photo-badge">manufacturer visual</span>`:`<div class="no-product-photo">${p.brand}<br>${inferBodyKind(p).replace("front","front aero").replace("rear","rear aero")}</div>`}</div>`:""}
+      ${bodyVisual?`<div class="product-visual">${p.preview?`<img src="${proxyImage(p.preview)}" alt="${p.brand} ${p.name}"><span class="clean-photo-badge">manufacturer visual</span>`:`<div class="no-product-photo">${p.brand}<br>${inferBodyKind(p).replace("front","front aero").replace("rear","rear aero")}</div>`}</div>`:""}
       <div class="part-card-top"><div><span class="part-brand">${p.brand}</span>${bodyVisual?`<div class="body-kind">${inferBodyKind(p)}</div>`:""}</div><span class="part-tier">${p.tier}</span></div>
       <h4>${p.name}</h4>
       <p>${p.desc}</p>
@@ -1716,7 +1737,7 @@ function renderVisualReference(){
   const img=document.querySelector("#kitPreviewImg"), empty=document.querySelector("#kitEmpty");
   if(!img||!empty)return;
   if(visual){
-    img.style.display="block"; empty.style.display="none"; img.src=visual.preview;
+    img.style.display="block"; empty.style.display="none"; img.src=proxyImage(visual.preview);
     document.querySelector("#kitVisualTitle").textContent=`${visual.brand} • ${visual.name}`;
     document.querySelector("#kitVisualSource").textContent="Official manufacturer visual";
     document.querySelector("#kitVisualNote").textContent="This is the manufacturer's real product/installed reference image. Other selected exterior pieces may not all be pictured together.";
@@ -1888,87 +1909,33 @@ function calcBuild(car=activeCar,st=state){
           setup:{intake,chargeCooling,exhaust,hpfp,lpfp,aux,transTune,wheel,launch}};
 }
 
-function commonsImageQuery(car){
-  const cache=JSON.parse(localStorage.getItem('bmwImageCacheV8Commons')||'{}');
-  if(cache[car.id]) return Promise.resolve(cache[car.id]);
-  const cleanName=car.name
-    .replace(/xDrive|Convertible|Touring|Gran Coupe|Gran Turismo|Long Wheelbase|Active Tourer|Gran Tourer|Competition|CSL|CS/gi,'')
-    .replace(/\(.*?\)/g,'').trim();
-  const ch=car.chassis.split('/')[0];
-  const queries=[
-    `BMW ${ch} ${cleanName}`,
-    `BMW ${ch} ${car.series} Series`,
-    `BMW ${cleanName}`
-  ];
-  const blocked=/interior|engine bay|engine|wheel close|brake|badge|logo|instrument|steering|crash|wreck|police|diagram|drawing|headlight|model car|toy|part|brochure|person|people|driver|crowd|museum|salon/i;
-  const tryQuery=(idx)=>{
-    if(idx>=queries.length) return Promise.resolve('');
-    const url='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=30&gsrsearch='+encodeURIComponent(queries[idx])+
-      '&prop=imageinfo&iiprop=url|size|mime&iiurlwidth=1200&format=json&origin=*';
-    return fetch(url).then(r=>r.json()).then(data=>{
-      const pages=Object.values(data.query?.pages||{}).map(p=>{
-        const ii=p.imageinfo?.[0]||{}, w=ii.thumbwidth||ii.width||0,h=ii.thumbheight||ii.height||1;
-        const title=p.title||''; let score=0;
-        if(blocked.test(title)) score-=300;
-        if(title.toLowerCase().includes(ch.toLowerCase())) score+=25;
-        cleanName.toLowerCase().split(/\s+/).forEach(tok=>{if(tok.length>2&&title.toLowerCase().includes(tok))score+=5});
-        const ratio=w/Math.max(1,h);
-        if(ratio>1.2&&ratio<2.35)score+=16;else score-=10;
-        if(w>=1000)score+=8;
-        if(ii.mime==='image/jpeg'||ii.mime==='image/webp'||ii.mime==='image/png')score+=4;
-        return {url:ii.thumburl||ii.url||'',score,title};
-      }).filter(x=>x.url&&!blocked.test(x.title)).sort((a,b)=>b.score-a.score);
-      if(pages[0]&&pages[0].score>10){
-        cache[car.id]=pages[0].url;
-        try{localStorage.setItem('bmwImageCacheV8Commons',JSON.stringify(cache))}catch{}
-        return pages[0].url;
-      }
-      return tryQuery(idx+1);
-    }).catch(()=>tryQuery(idx+1));
-  };
-  return tryQuery(0);
+function inlineCarFallback(car){
+  const title=`${car.chassis} ${car.name}`.replace(/[<>&]/g,'');
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700"><defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#142232"/><stop offset="1" stop-color="#070a0e"/></linearGradient></defs><rect width="1200" height="700" fill="url(#g)"/><path d="M270 440 L370 350 Q430 305 550 300 L745 300 Q835 305 900 360 L980 430 Q1000 448 988 468 Q977 486 950 486 L900 486 Q878 425 812 425 Q744 425 725 486 L515 486 Q494 425 422 425 Q350 425 330 486 L282 486 Q255 486 248 466 Q242 451 270 440Z" fill="#aeb8c2"/><circle cx="425" cy="482" r="58" fill="#131920"/><circle cx="810" cy="482" r="58" fill="#131920"/><text x="70" y="100" fill="#f4f7fa" font-family="Arial" font-size="42" font-weight="700">${title}</text><text x="70" y="145" fill="#8ba0b4" font-family="Arial" font-size="22">Embedded fallback visual</text></svg>`;
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 }
-
 function imageQuery(car){
-  const curated=basePhotoFor(car);
-  if(curated) return Promise.resolve(curated);
-  return commonsImageQuery(car);
+  return Promise.resolve(basePhotoFor(car));
 }
-
 function setImg(img,car){
-  img.removeAttribute('src');
-  img.classList.remove('loaded');
-  img.style.opacity='0';
-  img.referrerPolicy='no-referrer';
+  img.removeAttribute('src');img.classList.remove('loaded');img.style.opacity='0';img.referrerPolicy='no-referrer';
   const credit=img.parentElement?.querySelector('.database-photo-credit');
-  if(credit) credit.style.display='none';
-  let triedCommons=false;
-  const show=(url,label)=>{
-    if(!url) return;
-    img.onload=()=>{
-      img.style.opacity='1';
-      img.classList.add('loaded');
-      if(credit){credit.style.display='block';credit.textContent=label||'Curated vehicle photo'}
-    };
-    img.onerror=()=>{
-      img.style.opacity='0';
-      img.classList.remove('loaded');
-      if(credit) credit.style.display='none';
-      if(!triedCommons){
-        triedCommons=true;
-        commonsImageQuery(car).then(fallback=>{
-          if(fallback && fallback!==url) show(fallback,'Wikimedia Commons fallback');
-        });
-      }
-    };
-    img.src=url;
+  if(credit)credit.style.display='none';
+  const primary=basePhotoFor(car);
+  const seriesFallback=SERIES_FALLBACK_PHOTOS[car.series];
+  let stage=0;
+  const tryNext=()=>{
+    stage++;
+    if(stage===1 && primary){img.src=primary;return;}
+    if(stage===2 && seriesFallback && seriesFallback!==primary){img.src=seriesFallback;return;}
+    img.src=inlineCarFallback(car);
   };
-  const curated=basePhotoFor(car);
-  if(curated) show(curated,'BMW press photo');
-  else{
-    triedCommons=true;
-    commonsImageQuery(car).then(url=>show(url,'Wikimedia Commons photo'));
-  }
+  img.onload=()=>{
+    img.style.opacity='1';img.classList.add('loaded');
+    if(credit){credit.style.display='block';credit.textContent=stage===1?'Curated chassis photo':stage===2?'Series representative photo':'Embedded fallback visual';}
+  };
+  img.onerror=()=>{img.style.opacity='0';img.classList.remove('loaded');tryNext();};
+  tryNext();
 }
 
 function renderFilters(){
@@ -1983,7 +1950,7 @@ function renderCars(){
   const grid=$('#carGrid'); grid.innerHTML='';
   filtered.forEach(c=>{
     const el=document.createElement('article'); el.className='card car-card';
-    el.innerHTML=`<div class="car-photo"><div class="photo-fallback">${c.chassis} • ${c.name}<br><small style="font-size:9px;color:#607184">Loading vehicle photo…</small></div><img loading="lazy" alt="${c.name}"><span class="database-photo-credit">Vehicle photo source</span></div>
+    el.innerHTML=`<div class="car-photo"><div class="photo-fallback">${c.chassis} • ${c.name}<br><small style="font-size:9px;color:#607184">Loading GitHub-compatible photo…</small></div><img loading="lazy" alt="${c.name}"><span class="database-photo-credit">Vehicle photo source</span></div>
       <div class="car-body">
         <div class="chiprow"><span class="chip blue">${c.chassis}</span><span class="chip">${c.years}</span><span class="chip">${c.powertrain.toUpperCase()}</span><span class="chip">REP. SPEC</span></div>
         <div class="car-title"><strong>${c.name}</strong><span>${c.hp} hp</span></div>
