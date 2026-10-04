@@ -2311,5 +2311,46 @@ $('#vehicleCount').textContent=CARS.length;
 $('#chassisCount').textContent=new Set(CARS.map(c=>c.chassis)).size;
 renderFilters();renderBuilderSelect();renderCars();syncBuilder();renderGarage();updateRaceDropdowns();
 </script>
+<!-- all of your website content above -->
+
+<footer class="site-footer">
+  <div class="footer-credit">
+    <img
+      src="caw327@miami.edu-a5e324d4.jpg"
+      alt="Charles Wilson"
+      class="footer-profile-picture"
+    />
+
+    <span>Website created by <strong>Charles Wilson</strong></span>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    width: 100%;
+    padding: 24px 20px;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    background: #080808;
+    color: #ffffff;
+  }
+
+  .footer-credit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 14px;
+  }
+
+  .footer-profile-picture {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+  }
+</style>
+
 </body>
 </html>
